@@ -1,0 +1,4 @@
+pip
+watchdog
+pyyaml
+obs-websocket-py
