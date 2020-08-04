@@ -34,6 +34,7 @@ Same thing for the countdown, but you use the secondary output, make the templat
 - [x] Communicate with OBS via websockets
 - [x] Make countdown synced to the system clock
 - [x] Reduce I/O accesses
+- [x] Add Unicode Support
 - [ ] Implement scene switching in OBS
 - [ ] Implement asyncio
 - [ ] Implement dynamic Twitch titler
@@ -55,7 +56,7 @@ Probably. It works on my machine.
 This can (and probably should) be changed by modifying the `OBS Websocket Settings` section on `script.py` and `countdown.py`.
 
 ### Is this cross-platform?
-Technically it should be but StationPlaylist only runs on Windows so no other testing has been done.
+~~Technically it should be but StationPlaylist only runs on Windows so no other testing has been done.~~ Requires GDI+ text sources. Easy fix, but not cross-platform out of the box.
 
 ### What license is this?
 Will figure out at some point, will be free as in freedom, for now is free as in free beer except the source is also available.
