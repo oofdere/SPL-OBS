@@ -6,7 +6,7 @@ echo Not yet implemented :(
 echo.
 
 echo Updating python packages...
-pip install -r requirements.txt
+py -m pip install -r requirements.txt
 echo.
 
 echo Done!
