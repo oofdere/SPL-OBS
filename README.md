@@ -20,7 +20,6 @@ Same thing for the countdown, but you use the secondary output, make the templat
 
 ## Requirements
  - OBS Studio with [websockets plugin](https://github.com/Palakis/obs-websocket)
-   - 
  - Python >= 3.8 (3.8.5 from the Microsoft Store was used for development)
    - watchdog
    - pyyaml
@@ -35,12 +34,14 @@ Same thing for the countdown, but you use the secondary output, make the templat
 - [x] Make countdown synced to the system clock
 - [x] Reduce I/O accesses
 - [x] Add Unicode Support
+- [x] Stop making end users install Python
 - [ ] Implement scene switching in OBS
 - [ ] Implement asyncio
 - [ ] Implement dynamic Twitch titler
 - [ ] Improve multithreading/general performance
 - [ ] Add a GUI
 - [ ] Add a way to configure the settings that isn't "go into the code and find the thing to change"
+- [ ] Don't quit on errors
 
 Suggest features by opening an issue.
 
@@ -54,11 +55,10 @@ Probably. It works on my machine.
  - Password: `spl-obs`
 
 This can (and probably should) be changed by modifying the `OBS Websocket Settings` section on `script.py` and `countdown.py`.
-
-This cannot yet be changed for the binary (exe) distribution.
+**This cannot yet be changed for the binary (exe) distribution.**
 
 ### Is this cross-platform?
-~~Technically it should be but StationPlaylist only runs on Windows so no other testing has been done.~~ Requires GDI+ text sources. Easy fix, but not cross-platform out of the box.
+~~Technically it should be but StationPlaylist only runs on Windows so no other testing has been done.~~ Requires GDI+ text sources. Easy fix, but not cross-platform out of the box. Binary obviously is not.
 
 ### What license is this?
 Will figure out at some point, will be free as in freedom, for now is free as in free beer except the source is also available.
