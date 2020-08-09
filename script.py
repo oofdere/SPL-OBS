@@ -16,7 +16,18 @@ from multiprocessing import Process
 
 from obswebsocket import obsws, requests
 
-logging.basicConfig(level=logging.DEBUG)
+from rich.logging import RichHandler
+from rich.console import Console
+from rich import print
+from rich.panel import Panel
+console = Console()
+
+FORMAT = "%(message)s"
+logging.basicConfig(
+    level="INFO", format=FORMAT, datefmt="[%X]", handlers=[RichHandler()]
+)
+
+log = logging.getLogger("rich")
 
 #! (C)2020 Tibet Tornaci/oofdere. All rights reserved.
 
@@ -35,7 +46,8 @@ def openfile():
         #print(data)
         tempfile.append(data)
 
-    #print(tempfile)
+    log.info(tempfile)
+    log.info("Parsed YAML")
     return tempfile
 
 def switchscene(scenename):
@@ -62,7 +74,7 @@ def nowplayingupdate(title):
 
     kvcmobs.call(requests.SetTextGDIPlusProperties("nowplaying", text=nowplayingstring))
 
-    print(f"Updated Now Playing")
+    return console.log(Panel.fit(nowplayingstring, title="Now Playing"))
 
     pass
 
@@ -72,8 +84,6 @@ def titletotime(title):
 
 def upcomingupdate(schedulelist):
     # updates the schedule text
-    schedulefile = open("schedule.txt", 'w', encoding='utf8') 
-
     #? This might be slightly faster as a while loop seeing as all the math is already being done on 'i.'
     i = 1
     playlist = """"""
@@ -83,19 +93,15 @@ def upcomingupdate(schedulelist):
             titlestring = str(i) + ". 🎶" + title.get("title", "Nothing scheduled") + " 👤" + title.get("artist", "") + '\n'
             playlist += titlestring
         else:
-            #print("Nothing programmed.")
             pass
 
         i += 1
-        
-        #schedulefile.write(titlestring)
-        #schedulefile.write('\n')
 
         if i > 9:
             kvcmobs.call(requests.SetTextGDIPlusProperties("upnext", text=playlist))
-            return 0
+            return console.log(Panel.fit(playlist, title="Up Next"))
 
-        print(f"Updated Up Next item " + str(i))
+        #console.log("Updated Up Next item " + str(i))
     pass
 
 def updatetwitchtitle(title):
@@ -105,12 +111,11 @@ def updatetwitchtitle(title):
 
 class MyEventHandler(PatternMatchingEventHandler):
     def on_modified(self, event):
-        logging.debug(event)
+        logging.info(event)
         
-        #print(f"Updating...")
         schedule = openfile()
         nowplaying = next((sub for sub in schedule if sub['index'] == 0), None)
-        print(nowplaying)
+        log.info(nowplaying)
 
         nowplayingupdate(nowplaying)
         upcomingupdate(schedule)
@@ -122,16 +127,16 @@ if __name__ == '__main__':
     observer = Observer()
     observer.schedule(event_handler, path, recursive=True)
     observer.start()
+    log.info("Started Watchdog")
 
     schedule = openfile()
     nowplaying = next((sub for sub in schedule if sub['index'] == 0), None)
-    print(schedule)
-    print("init")
+    console.log(schedule)
 
     nowplayingupdate(nowplaying)
     upcomingupdate(schedule)
 
-    print("End of list")
+    log.info("End of list")
 
     try:
         while True:

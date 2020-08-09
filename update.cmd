@@ -1,5 +1,5 @@
 @echo off
-REM call env\Scripts\activate
+call env\Scripts\activate
 python --version
 echo Getting newest version from GitHub...
 echo Not yet implemented :(
