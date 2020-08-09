@@ -5,3 +5,4 @@ copy duration.txt dist
 copy README.md dist
 copy schedule.txt dist
 copy spls-template.yml dist
+copy install.cmd dist
