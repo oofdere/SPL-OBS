@@ -55,6 +55,8 @@ Probably. It works on my machine.
 
 This can (and probably should) be changed by modifying the `OBS Websocket Settings` section on `script.py` and `countdown.py`.
 
+This cannot yet be changed for the binary (exe) distribution.
+
 ### Is this cross-platform?
 ~~Technically it should be but StationPlaylist only runs on Windows so no other testing has been done.~~ Requires GDI+ text sources. Easy fix, but not cross-platform out of the box.
 
