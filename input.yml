@@ -1,4 +1,112 @@
 ---
+title: "%+1t"
+artist: "%+1a"
+album: "%+1T"
+duration: 0
+index: +1
+---
+title: "%+2t"
+artist: "%+2a"
+album: "%+2T"
+duration: 0
+index: +2
+---
+title: "%+3t"
+artist: "%+3a"
+album: "%+3T"
+duration: 0
+index: +3
+---
+title: "%+4t"
+artist: "%+4a"
+album: "%+4T"
+duration: 0
+index: +4
+---
+title: "%+5t"
+artist: "%+5a"
+album: "%+5T"
+duration: 0
+index: +5
+---
+title: "%+6t"
+artist: "%+6a"
+album: "%+6T"
+duration: 0
+index: +6
+---
+title: "%+7t"
+artist: "%+7a"
+album: "%+7T"
+duration: 0
+index: +7
+---
+title: "%+8t"
+artist: "%+8a"
+album: "%+8T"
+duration: 0
+index: +8
+---
+title: "%+9t"
+artist: "%+9a"
+album: "%+9T"
+duration: 0
+index: +9
+---
+title: "%-1t"
+artist: "%-1a"
+album: "%-1T"
+duration: 0
+index: -1
+---
+title: "%-2t"
+artist: "%-2a"
+album: "%-2T"
+duration: 0
+index: -2
+---
+title: "%-3t"
+artist: "%-3a"
+album: "%-3T"
+duration: 0
+index: -3
+---
+title: "%-4t"
+artist: "%-4a"
+album: "%-4T"
+duration: 0
+index: -4
+---
+title: "%-5t"
+artist: "%-5a"
+album: "%-5T"
+duration: 0
+index: -5
+---
+title: "%-6t"
+artist: "%-6a"
+album: "%-6T"
+duration: 0
+index: -6
+---
+title: "%-7t"
+artist: "%-7a"
+album: "%-7T"
+duration: 0
+index: -7
+---
+title: "%-8t"
+artist: "%-8a"
+album: "%-8T"
+duration: 0
+index: -8
+---
+title: "%-9t"
+artist: "%-9a"
+album: "%-9T"
+duration: 0
+index: -9
+---
 title: "Point StationPlaylist Studio to 'input.yml'."
 artist: "Use 'spls-template.yml' as the template."
 album: "See github.com/oofdere/SPL-OBS for more info"
