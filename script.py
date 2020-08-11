@@ -6,8 +6,14 @@ import sys
 import time
 import datetime
 
+# File watching
 from watchdog.events import PatternMatchingEventHandler
 from watchdog.observers import Observer
+
+# Configuration parsing
+import configparser
+config = configparser.ConfigParser()
+config.read('updater.ini', encoding="utf-8")
 
 import yaml
 
@@ -24,7 +30,7 @@ console = Console()
 
 FORMAT = "%(message)s"
 logging.basicConfig(
-    level="INFO", format=FORMAT, datefmt="[%X]", handlers=[RichHandler()]
+    level=config['debug']['loglevel'], format=FORMAT, datefmt="[%X]", handlers=[RichHandler()]
 )
 
 log = logging.getLogger("rich")
@@ -32,12 +38,12 @@ log = logging.getLogger("rich")
 #! (C)2020 Tibet Tornaci/oofdere. All rights reserved.
 
 #* OBS Websocket Settings
-obshost = "localhost"
-obsport = 4444
-obspass = "obs-spl"
-kvcmobs = obsws(obshost, obsport, obspass)
-kvcmobs.connect()
-
+obshost = config['obs-websockets']['host']
+obsport = config['obs-websockets']['port']
+obspass = str(config['obs-websockets']['password'])
+obsinstance = obsws(obshost, obsport, obspass)
+obsinstance.connect()
+log.info("Connected to OBS!")
 
 def openfile():
     tempfile = []
@@ -58,21 +64,21 @@ def switchscene(scenename):
 def nowplayingupdate(title):
     # updates the now playing text
     # title points to a dict
-    songname = "🎶" + title.get("title")
+    songname = str(config['nowplaying-title']['preceding']).strip('"') + title.get("title")
     artist = ""
     album = ""
 
     if title.get("artist"):
-        artist = "    👤" + title.get("artist")
+        artist = str(config['nowplaying-artist']['preceding']).strip('"') + title.get("artist")
         pass
 
     if title.get("album"):
-        album = "    💽" + title.get("album")
+        album = str(config['nowplaying-album']['preceding']).strip('"') + title.get("album")
         pass
     
-    nowplayingstring = songname + artist + album + "             "
+    nowplayingstring = songname + artist + album + str(config['nowplaying']['seperator']).strip('"')
 
-    kvcmobs.call(requests.SetTextGDIPlusProperties("nowplaying", text=nowplayingstring))
+    obsinstance.call(requests.SetTextGDIPlusProperties("nowplaying", text=nowplayingstring))
 
     return console.log(Panel.fit(nowplayingstring, title="Now Playing"))
 
@@ -98,7 +104,7 @@ def upcomingupdate(schedulelist):
         i += 1
 
         if i > 9:
-            kvcmobs.call(requests.SetTextGDIPlusProperties("upnext", text=playlist))
+            obsinstance.call(requests.SetTextGDIPlusProperties("upnext", text=playlist))
             return console.log(Panel.fit(playlist, title="Up Next"))
 
         #console.log("Updated Up Next item " + str(i))

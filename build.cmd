@@ -7,3 +7,5 @@ copy schedule.txt dist
 copy spls-template.yml dist
 copy install.cmd dist
 copy LICNESE dist
+copy updater.ini dist
+copy countdown.ini dist
