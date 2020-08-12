@@ -95,15 +95,28 @@ def upcomingupdate(schedulelist):
     playlist = """"""
     for title in schedulelist:
         titlestring = ""
+        namestring = ""
+        numstring = ""
+        artiststring = ""
+
         if title["title"]:
-            titlestring = str(i) + ". 🎶" + title.get("title", "Nothing scheduled") + " 👤" + title.get("artist", "") + '\n'
+            if config['upcoming']['number'] == "yes":
+                numstring = str(i) + config['upcoming']['afternumber'].strip('"')
+            
+            if config['upcoming-title']['enabled'] == "yes":
+                namestring = config['upcoming-title']['preceding'].strip('"') + title.get("title", "Nothing scheduled")
+
+            if config['upcoming-artist']['enabled'] == "yes":
+                artiststring = config['upcoming-artist']['preceding'].strip('"') + title.get("artist")
+
+            titlestring = numstring + namestring + artiststring + '\n'
             playlist += titlestring
         else:
             pass
 
         i += 1
 
-        if i > 9:
+        if i > int(config['upcoming']['count']):
             obsinstance.call(requests.SetTextGDIPlusProperties("upnext", text=playlist))
             return console.log(Panel.fit(playlist, title="Up Next"))
 
@@ -123,8 +136,11 @@ class MyEventHandler(PatternMatchingEventHandler):
         nowplaying = next((sub for sub in schedule if sub['index'] == 0), None)
         log.info(nowplaying)
 
-        nowplayingupdate(nowplaying)
-        upcomingupdate(schedule)
+        if config['nowplaying']['enabled'] == "yes":
+            nowplayingupdate(nowplaying)
+
+        if config['upcoming']['enabled'] == "yes":
+            upcomingupdate(schedule)
        
 if __name__ == '__main__':
     path = "."
@@ -139,8 +155,11 @@ if __name__ == '__main__':
     nowplaying = next((sub for sub in schedule if sub['index'] == 0), None)
     console.log(schedule)
 
-    nowplayingupdate(nowplaying)
-    upcomingupdate(schedule)
+    if config['nowplaying']['enabled'] == "yes":
+        nowplayingupdate(nowplaying)
+
+    if config['upcoming']['enabled'] == "yes":
+        upcomingupdate(schedule)
 
     log.info("End of list")
 
