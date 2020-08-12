@@ -1,1 +1,9 @@
-theme: jekyll-theme-cayman
+remote_theme: pmarsceill/just-the-docs
+title: "SPL-OBS Documentation"
+heading_anchors: true
+
+aux_links:
+  "GitHub Repo":
+    - "//github.com/oofdere/SPL-OBS"
+    
+footer_content: "Copyright &copy; 2020 oofdere."
