@@ -5,3 +5,4 @@ obs-websocket-py
 pyinstaller
 rich
 gooey
+pip-licenses

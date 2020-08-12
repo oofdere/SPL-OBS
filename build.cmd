@@ -9,3 +9,5 @@ copy install.cmd dist
 copy LICNESE dist
 copy updater.ini dist
 copy countdown.ini dist
+pip-licenses --format=plain-vertical --with-license-file --with-notice-file --no-license-path --output-file=LICENSES
+copy LICENSES dist
