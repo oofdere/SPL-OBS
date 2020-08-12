@@ -6,3 +6,4 @@ pyinstaller
 rich
 gooey
 pip-licenses
+python-twitch

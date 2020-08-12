@@ -35,6 +35,8 @@ logging.basicConfig(
 
 log = logging.getLogger("rich")
 
+import twitch
+
 #! (C)2020 Tibet Tornaci/oofdere. All rights reserved.
 
 #* OBS Websocket Settings
@@ -44,6 +46,13 @@ obspass = str(config['obs-websockets']['password'])
 obsinstance = obsws(obshost, obsport, obspass)
 obsinstance.connect()
 log.info("Connected to OBS!")
+
+#* Twitch Chat Settings
+twchannel = '#' + config['twitch']['channel']
+twnickname = config['twitch']['nickname']
+twoauth = config['twitch']['oauth']
+twclientid = config['twitch']['clientid']
+chat = twitch.Chat(channel=twchannel, nickname=twnickname, oauth=twoauth, helix=twitch.Helix(client_id=twclientid, use_cache=True))
 
 def openfile():
     tempfile = []
@@ -125,7 +134,23 @@ def upcomingupdate(schedulelist):
 
 def updatetwitchtitle(title):
     # updates stream title on Twitch via nightbot
-    NotImplementedError
+    songname = str(config['nowplaying-title']['preceding']).strip('"') + title.get("title")
+    artist = ""
+    album = ""
+
+    if title.get("artist"):
+        artist = str(config['nowplaying-artist']['preceding']).strip('"') + title.get("artist")
+        pass
+
+    if title.get("album"):
+        album = str(config['nowplaying-album']['preceding']).strip('"') + title.get("album")
+        pass
+    
+    nowplayingstring = songname + artist + album + str(config['nowplaying']['seperator']).strip('"')
+
+    chat.send("!title " + nowplayingstring)
+
+    return console.log("Updated Twitch title")
     pass
 
 class MyEventHandler(PatternMatchingEventHandler):
@@ -141,6 +166,9 @@ class MyEventHandler(PatternMatchingEventHandler):
 
         if config['upcoming']['enabled'] == "yes":
             upcomingupdate(schedule)
+        
+        if config['twitch']['enabled'] == "yes":
+            updatetwitchtitle(nowplaying)
        
 if __name__ == '__main__':
     path = "."
@@ -160,6 +188,9 @@ if __name__ == '__main__':
 
     if config['upcoming']['enabled'] == "yes":
         upcomingupdate(schedule)
+
+    if config['twitch']['enabled'] == "yes":
+        updatetwitchtitle(nowplaying)
 
     log.info("End of list")
 
