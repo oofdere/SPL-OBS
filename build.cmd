@@ -1,5 +1,5 @@
-pyinstaller --onefile --name "SPL-OBS Updater" script.py --version-file "winupdaterinfo.txt"
-pyinstaller --onefile --name "SPL-OBS Countdown" countdown.py --version-file "wincountdowninfo.txt"
+pyinstaller --onefile --name "SPL-OBS Updater" script.py --version-file "winupdaterinfo.txt" --icon=updater.ico
+pyinstaller --onefile --name "SPL-OBS Countdown" countdown.py --version-file "wincountdowninfo.txt" --icon=countdown.ico
 copy input.yml dist
 copy duration.txt dist
 copy README.md dist
