@@ -48,11 +48,13 @@ obsinstance.connect()
 log.info("Connected to OBS!")
 
 #* Twitch Chat Settings
-twchannel = '#' + config['twitch']['channel']
-twnickname = config['twitch']['nickname']
-twoauth = config['twitch']['oauth']
-twclientid = config['twitch']['clientid']
-chat = twitch.Chat(channel=twchannel, nickname=twnickname, oauth=twoauth, helix=twitch.Helix(client_id=twclientid, use_cache=True))
+if config['twitch']['enabled'] == "yes":
+    twchannel = '#' + config['twitch']['channel']
+    twnickname = config['twitch']['nickname']
+    twoauth = config['twitch']['oauth']
+    twclientid = config['twitch']['clientid']
+    chat = twitch.Chat(channel=twchannel, nickname=twnickname, oauth=twoauth, helix=twitch.Helix(client_id=twclientid, use_cache=True))
+    log.info("Connected to Twitch Chat!")
 
 def openfile():
     tempfile = []
