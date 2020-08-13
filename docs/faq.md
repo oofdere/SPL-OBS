@@ -5,7 +5,13 @@ nav_exclude: false
 nav_order: 2
 ---
 
+## Table of contents
+{: .no_toc .text-delta }
+1. TOC
+{:toc}
+
 ## (inFrequently Asked Questions)
+{: .no_toc .text-delta }
 ### Should I run this as administrator?
 **NO.** Please don't. It shouldn't need to run as admin and it should never ask to.
 
