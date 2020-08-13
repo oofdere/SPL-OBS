@@ -4,8 +4,7 @@ title: Installation
 nav_order: 1
 ---
 
-# Installation
-These are the instructions for setting up the countdown for SPL-OBS.
+These are the instructions for downloading and installing SPL-OBS.
 
 ## Table of contents
 {: .no_toc .text-delta }

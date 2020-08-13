@@ -2,6 +2,7 @@
 layout: default
 title: iFAQ
 nav_exclude: false
+nav_order: 2
 ---
 
 ## (inFrequently Asked Questions)
