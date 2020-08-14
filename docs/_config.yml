@@ -1,6 +1,7 @@
 remote_theme: pmarsceill/just-the-docs
 title: "SPL-OBS Docs"
 heading_anchors: true
+color_scheme: dark
 
 aux_links:
   "GitHub Repo":
