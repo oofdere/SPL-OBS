@@ -75,7 +75,9 @@ The default port is `4444` which is also the default port of the WebSockets serv
 ### `password`
 **Default:** `obs-spl`
 
-**PLEASE CHANGE THE PASSWORD FROM THE DEFAULT.** Do so in both this file and [in OBS](../install#setup-the-websockets-server).
+**PLEASE CHANGE THE PASSWORD FROM THE DEFAULT.**
+{: red-300 }
+Do so in both this file and [in OBS](../install#setup-the-websockets-server).
 
 ## `[twitch]`
 See the [Twitch](twitch) page.
