@@ -52,7 +52,7 @@ The default port is `4444` which is also the default port of the WebSockets serv
 **Default:** `obs-spl`
 
 **PLEASE CHANGE THE PASSWORD FROM THE DEFAULT.**
-{: red-300 }
+{: .red-300 }
 Do so in both this file and [in OBS](../install#setup-the-websockets-server).
 
 ## `[debug]` (optional developer options)
