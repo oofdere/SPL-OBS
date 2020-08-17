@@ -112,10 +112,6 @@ def nowplayingupdate(title: dict):
 
     pass
 
-def titletotime(title):
-    time = int(title.get("duration"))
-    return time
-
 def upcomingupdate(schedulelist):
     # updates the schedule text
     #? This might be slightly faster as a while loop seeing as all the math is already being done on 'i.'
