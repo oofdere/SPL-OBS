@@ -67,6 +67,12 @@ def openfile():
     log.info("Parsed YAML")
     return tempfile
 
+def quotefree(input_variable):
+    """
+    this function removes quotes after type conversion to string
+    """
+    return str(input_variable).strip('"')
+
 def nowplayingupdate(title):
     # updates the now playing text
     # title points to a dict
