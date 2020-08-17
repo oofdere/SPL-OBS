@@ -142,27 +142,26 @@ def updatetwitchtitle(title):
     artistconfig = 'twitch-artist'
     albumconfig = 'twitch-album'
 
-    songname = str(config[titleconfig]['prefix']).strip('"') + title.get("title")
+    songname = quotefree(config[titleconfig]['prefix']) + title.get("title")
     artist = ""
     album = ""
 
-    prefix = seperator = str(config[serviceconfig]['prefix']).strip('"')
-    suffix = seperator = str(config[serviceconfig]['suffix']).strip('"')
-    seperator = str(config[serviceconfig]['seperator']).strip('"')
+    prefix = seperator = quotefree(config[serviceconfig]['prefix'])
+    suffix = seperator = quotefree(config[serviceconfig]['suffix'])
+    seperator = quotefree(config[serviceconfig]['seperator'])
 
-    if title.get("artist") and str(config[artistconfig]['enabled']) == "yes":
-        artist = seperator + str(config[artistconfig]['prefix']).strip('"') + title.get("artist") + str(config[artistconfig]['suffix'])
+    if title.get("artist") and quotefree(config[artistconfig]['enabled']) == "yes":
+        artist = seperator + quotefree(config[artistconfig]['prefix']) + title.get("artist") + quotefree(config[artistconfig]['suffix'])
         pass
 
-    if title.get("album") and str(config[albumconfig]['enabled']) == "yes":
-        album = seperator + str(config[albumconfig]['prefix']).strip('"') + title.get("album") + str(config[albumconfig]['suffix'])
+    if title.get("album") and quotefree(config[albumconfig]['enabled']) == "yes":
+        album = seperator + quotefree(config[albumconfig]['prefix']).strip('"') + title.get("album") + quotefree(config[albumconfig]['suffix'])
         pass
     
     titlestring = prefix + songname + artist + album + suffix
     chat.send("!title " + titlestring)
 
     return console.log(Panel.fit(titlestring, title="Twitch Title"))
-    pass
 
 class MyEventHandler(PatternMatchingEventHandler):
     def on_modified(self, event):
