@@ -73,22 +73,38 @@ def quotefree(input_variable):
     """
     return str(input_variable).strip('"')
 
-def nowplayingupdate(title):
-    # updates the now playing text
-    # title points to a dict
-    songname = str(config['nowplaying-title']['preceding']).strip('"') + title.get("title")
+def updatercore(service_name: str, title):
+    serviceconfig = service_name
+    titleconfig = service_name + '-title'
+    artistconfig = service_name + '-artist'
+    albumconfig = service_name + '-album'
+
+    songname = quotefree(config[titleconfig]['prefix']) + title.get("title")
     artist = ""
     album = ""
 
-    if title.get("artist"):
-        artist = str(config['nowplaying-artist']['preceding']).strip('"') + title.get("artist")
+    prefix = seperator = quotefree(config[serviceconfig]['prefix'])
+    suffix = seperator = quotefree(config[serviceconfig]['suffix'])
+    seperator = quotefree(config[serviceconfig]['seperator'])
+
+    if title.get("artist") and quotefree(config[artistconfig]['enabled']) == "yes":
+        artist = seperator + quotefree(config[artistconfig]['prefix']) + title.get("artist") + quotefree(config[artistconfig]['suffix'])
         pass
 
-    if title.get("album"):
-        album = str(config['nowplaying-album']['preceding']).strip('"') + title.get("album")
+    if title.get("album") and quotefree(config[albumconfig]['enabled']) == "yes":
+        album = seperator + quotefree(config[albumconfig]['prefix']).strip('"') + title.get("album") + quotefree(config[albumconfig]['suffix'])
         pass
     
-    nowplayingstring = songname + artist + album + str(config['nowplaying']['seperator']).strip('"')
+    titlestring = prefix + songname + artist + album + suffix
+
+    return titlestring
+
+def nowplayingupdate(title: dict):
+    """
+    updates the now playing text
+    """
+
+    nowplayingstring = updatercore("nowplaying", title)
 
     obsinstance.call(requests.SetTextGDIPlusProperties("nowplaying", text=nowplayingstring))
 
@@ -114,14 +130,8 @@ def upcomingupdate(schedulelist):
         if title["title"]:
             if config['upcoming']['number'] == "yes":
                 numstring = str(i) + config['upcoming']['afternumber'].strip('"')
-            
-            if config['upcoming-title']['enabled'] == "yes":
-                namestring = config['upcoming-title']['preceding'].strip('"') + title.get("title", "Nothing scheduled")
 
-            if config['upcoming-artist']['enabled'] == "yes":
-                artiststring = config['upcoming-artist']['preceding'].strip('"') + title.get("artist")
-
-            titlestring = numstring + namestring + artiststring + '\n'
+            titlestring = numstring + updatercore("upcoming", title) + '\n'
             playlist += titlestring
         else:
             pass
@@ -137,29 +147,9 @@ def upcomingupdate(schedulelist):
 
 def updatetwitchtitle(title):
     # updates stream title on Twitch via nightbot
-    serviceconfig = 'twitch'
-    titleconfig = 'twitch-title'
-    artistconfig = 'twitch-artist'
-    albumconfig = 'twitch-album'
+    titlestring = updatercore("twitch", title)
 
-    songname = quotefree(config[titleconfig]['prefix']) + title.get("title")
-    artist = ""
-    album = ""
-
-    prefix = seperator = quotefree(config[serviceconfig]['prefix'])
-    suffix = seperator = quotefree(config[serviceconfig]['suffix'])
-    seperator = quotefree(config[serviceconfig]['seperator'])
-
-    if title.get("artist") and quotefree(config[artistconfig]['enabled']) == "yes":
-        artist = seperator + quotefree(config[artistconfig]['prefix']) + title.get("artist") + quotefree(config[artistconfig]['suffix'])
-        pass
-
-    if title.get("album") and quotefree(config[albumconfig]['enabled']) == "yes":
-        album = seperator + quotefree(config[albumconfig]['prefix']).strip('"') + title.get("album") + quotefree(config[albumconfig]['suffix'])
-        pass
-    
-    titlestring = prefix + songname + artist + album + suffix
-    chat.send("!title " + titlestring)
+    #chat.send("!title " + titlestring)
 
     return console.log(Panel.fit(titlestring, title="Twitch Title"))
 
