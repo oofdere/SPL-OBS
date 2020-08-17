@@ -136,23 +136,31 @@ def upcomingupdate(schedulelist):
 
 def updatetwitchtitle(title):
     # updates stream title on Twitch via nightbot
-    songname = str(config['nowplaying-title']['preceding']).strip('"') + title.get("title")
+    serviceconfig = 'twitch'
+    titleconfig = 'twitch-title'
+    artistconfig = 'twitch-artist'
+    albumconfig = 'twitch-album'
+
+    songname = str(config[titleconfig]['prefix']).strip('"') + title.get("title")
     artist = ""
     album = ""
 
-    if title.get("artist"):
-        artist = str(config['nowplaying-artist']['preceding']).strip('"') + title.get("artist")
+    prefix = seperator = str(config[serviceconfig]['prefix']).strip('"')
+    suffix = seperator = str(config[serviceconfig]['suffix']).strip('"')
+    seperator = str(config[serviceconfig]['seperator']).strip('"')
+
+    if title.get("artist") and str(config[artistconfig]['enabled']) == "yes":
+        artist = seperator + str(config[artistconfig]['prefix']).strip('"') + title.get("artist") + str(config[artistconfig]['suffix'])
         pass
 
-    if title.get("album"):
-        album = str(config['nowplaying-album']['preceding']).strip('"') + title.get("album")
+    if title.get("album") and str(config[albumconfig]['enabled']) == "yes":
+        album = seperator + str(config[albumconfig]['prefix']).strip('"') + title.get("album") + str(config[albumconfig]['suffix'])
         pass
     
-    nowplayingstring = songname + artist + album + str(config['nowplaying']['seperator']).strip('"')
+    titlestring = prefix + songname + artist + album + suffix
+    chat.send("!title " + titlestring)
 
-    chat.send("!title " + nowplayingstring)
-
-    return console.log("Updated Twitch title")
+    return console.log(Panel.fit(titlestring, title="Twitch Title"))
     pass
 
 class MyEventHandler(PatternMatchingEventHandler):
