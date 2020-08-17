@@ -160,11 +160,11 @@ class MyEventHandler(PatternMatchingEventHandler):
         if config['nowplaying']['enabled'] == "yes":
             nowplayingupdate(nowplaying)
 
-        if config['upcoming']['enabled'] == "yes":
-            upcomingupdate(schedule)
-        
         if config['twitch']['enabled'] == "yes":
             updatetwitchtitle(nowplaying)
+
+        if config['upcoming']['enabled'] == "yes":
+            upcomingupdate(schedule)
        
 if __name__ == '__main__':
     path = "."

@@ -67,7 +67,7 @@ if __name__ == '__main__':
         while True:
             if t > 0:
                 obsinstance.call(requests.SetTextGDIPlusProperties("countdown", text=str(datetime.timedelta(seconds=int(t)))))
-                log.info(str(datetime.timedelta(seconds=int(t))))
+                console.log(str(datetime.timedelta(seconds=int(t))), highlight=False)
                 t -= 1
             else:
                 obsinstance.call(requests.SetTextGDIPlusProperties("countdown", text="0:00:00"))
@@ -76,5 +76,5 @@ if __name__ == '__main__':
             
     except KeyboardInterrupt:
         observer.stop()
-        console.log(obsinstance.call(requests.SetTextGDIPlusProperties("countdown", text="")), log_locals=True)
+        console.log(obsinstance.call(requests.SetTextGDIPlusProperties("countdown", text="")))
     observer.join()
