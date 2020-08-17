@@ -67,11 +67,6 @@ def openfile():
     log.info("Parsed YAML")
     return tempfile
 
-def switchscene(scenename):
-    # switches scene in obs  
-    
-    pass
-
 def nowplayingupdate(title):
     # updates the now playing text
     # title points to a dict
